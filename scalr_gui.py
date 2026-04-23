@@ -20,7 +20,7 @@ BG       = "#0D1117"   # near-black canvas
 PANEL    = "#161B22"   # card surface
 PANEL2   = "#1C2430"   # slightly lighter card
 BORDER   = "#21262D"   # subtle divider
-ACCENT   = "#238636"   # GitHub-style green
+ACCENT   = "#238636"   # green accent 
 ACCENT2  = "#2EA043"   # lighter green (hover)
 ACCENT3  = "#3FB950"   # bright success green
 TEXT     = "#E6EDF3"   # primary text
@@ -59,7 +59,7 @@ def run_all_parsers(grammar: str, input_str: str) -> dict:
         results = {}
         for m in PARSERS:
             parser_data = all_data.get("parsers", {}).get(m, {})
-            # Transplant shared data into the individual dictionary to keep GUI compatibility
+            # Transplant shared data into the individual dictionary fort GUI compatibility
             full_parser_result = {
                 "status": "success",
                 "grammar_map": all_data.get("grammar_map"),
@@ -70,7 +70,8 @@ def run_all_parsers(grammar: str, input_str: str) -> dict:
             results[m] = full_parser_result
             
         return results
-        
+
+    #errror message
     except FileNotFoundError:
         return {m: {"status": "error", "message": f"Backend not found: {BACKEND}\nCompile: g++ -std=c++20 -o scalr src/*.cpp -I include"} for m in PARSERS}
     except subprocess.TimeoutExpired:
@@ -85,7 +86,7 @@ def run_all_parsers(grammar: str, input_str: str) -> dict:
         return {m: {"status": "error", "message": str(e)} for m in PARSERS}
 
 
-#  SHARED UI HELPERS 
+#  SHARED UI HELPERS (layout of the gui basicallu)
 def section_label(parent, text):
     bar = ctk.CTkFrame(parent, fg_color=ACCENT, corner_radius=6)
     bar.pack(fill="x", padx=10, pady=(12, 4))
@@ -102,7 +103,7 @@ def error_label(parent, text):
 
 def placeholder_label(parent, text):
     ctk.CTkLabel(parent, text=text, font=FONT_BODY, text_color=MUTED).pack(pady=40)
-
+#for table view 
 def make_treeview(parent, columns, height=8):
     style = ttk.Style()
     style.theme_use("clam")
@@ -132,7 +133,7 @@ def make_treeview(parent, columns, height=8):
     outer.grid_rowconfigure(0, weight=1)
     outer.grid_columnconfigure(0, weight=1)
     return tv
-
+#bar chart comparison
 def bar_chart(parent, title, data: dict, color):
     frame = ctk.CTkFrame(parent, fg_color=PANEL, corner_radius=8,
                          border_width=1, border_color=BORDER)
@@ -290,7 +291,7 @@ class ScalrApp(ctk.CTk):
             border_width=1, border_color=BORDER, wrap="word", state="disabled")
         self.log_box.pack(fill="x", pady=(0, 10))
         return page
-
+#logs 
     def _log(self, message: str, level: str = "info"):
         ts = datetime.datetime.now().strftime("%H:%M:%S")
         colours = {"info": "#8B949E", "ok": "#3FB950", "warn": "#D29922", "error": "#F85149"}
@@ -464,7 +465,7 @@ class ScalrApp(ctk.CTk):
             r = self.results.get(m, {})
             return sum(1 for c in r.get("conflicts", []) if c.get("type") == t) \
                    if r.get("status") == "success" else "ERR"
-
+#parse  tBLEE
         for label, fn in [
             ("States",         lambda m: get(m, "states")),
             ("Total Conflicts", lambda m: get(m, "conflicts")),
