@@ -1,5 +1,4 @@
 # SCALR
-PBL Project (Compiler Design)
 
 ### Running the App
 1. Generate the build system using CMake:
