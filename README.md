@@ -28,8 +28,8 @@
 |---|---|---|
 | 🧑‍💻 | **Raj** | Core C++ Backend & LR Table Generation |
 | 🧑‍💻 | **Pratyush** | Parser Algorithms & Set Computation |
-| 👩‍💻 | **Palak** | GUI Design & Frontend Integration |
-| 👩‍💻 | **Diya** | Parse Tree Visualiser & Heatmap |
+| 👩‍💻 | **Palak** | Parse Tree Visualiser & Heatmap |
+| 👩‍💻 | **Diya** | GUI Design & Frontend Integration |
 
 ---
 
